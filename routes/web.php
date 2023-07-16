@@ -15,6 +15,7 @@ use App\Http\Controllers\ProdutoController;
 */
 
 Route::get('/', [ProdutoController::class, 'index'])->name('listagem-produtos');
-Route::get('/carrinho/{id}', [ProdutoController::class, 'visualizarCarrinho'])->name("carrinho-compras");
+Route::get('/carrinho/acessar/{id}', [ProdutoController::class, 'viewCarrinho'])->name("carrinho-compras");
+Route::post('/carrinho/comprar/{id}', [ProdutoController::class, 'updateCarrinho'])->name("update-carrinho");
 Route::post('/store', [ProdutoController::class, 'store'])->name("create-product");
-Route::post('/store/destroy', [ProdutoController::class, 'destroy'])->name("delete-product");
+Route::post('/store/delete', [ProdutoController::class, 'deleteProduct'])->name("delete-product");

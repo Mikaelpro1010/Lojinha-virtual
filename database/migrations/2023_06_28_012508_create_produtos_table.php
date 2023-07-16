@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nome')->nullable();
             $table->float('preco')->nullable();
             $table->integer('quantidade')->nullable();
+            $table->integer('quantidadeVendida')->nullable();
             $table->float('total')->nullable();
             $table->timestamps();
         });

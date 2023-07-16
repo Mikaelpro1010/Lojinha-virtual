@@ -13,7 +13,12 @@ class ProdutoController extends Controller
     public function index()
     {
         $produtos = Produto::get();
-        return view('welcome', ['produtos'=>$produtos]);
+        $total = 0;
+
+        foreach($produtos as $produto){
+            $total += $produto->total;
+        }
+        return view('welcome', ['produtos'=>$produtos, 'total'=>$total]);
     }
 
     /**
@@ -32,16 +37,34 @@ class ProdutoController extends Controller
         $produto->nome = $request->nome;
         $produto->preco = $request->preco;
         $produto->quantidade = $request->quantidade;
+        $produto->quantidadeVendida = $request->quantidadeVendida;
 
         $produto->save();
 
         return redirect()->route('listagem-produtos');
     }
 
-    public function visualizarCarrinho($id){
+    public function viewCarrinho($id){
         $produtos = Produto::find($id);
 
         return view('carrinho', ['produtos' => $produtos]);
+    }
+
+    public function updateCarrinho(Request $request, $id){
+        $produtos = Produto::find($id);
+        $produtosEstoque = $produtos->quantidade;
+        $produtosVendidos = $request->quantidadeVendida;
+        $produtosPreco = $produtos->preco;
+        $new_quantidade = $produtos->quantidadeVendida += $produtosVendidos;
+
+        if($new_quantidade<=$produtosEstoque){
+            $produtos->total = $produtosPreco*$new_quantidade;
+            $produtos->save();
+
+            return redirect()->route('listagem-produtos', $produtos->id);
+        } else {
+            dd("INVALIDO!!!");
+        }
     }
 
     /**
@@ -72,13 +95,17 @@ class ProdutoController extends Controller
         //
     }
 
+    public function deleteProduct(Request $request){
+        $produto = Produto::find($request->id);
+        $produto->delete();
+        return redirect()->route('listagem-produtos');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $id)
     {
-        $produto = Produto::find($id);
-        $produto->delete();
-        return redirect()->route('listagem-produtos')->with('mensagem', 'Deletado com sucesso!');
+        
     }
 }

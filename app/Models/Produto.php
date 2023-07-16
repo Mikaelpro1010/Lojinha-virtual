@@ -11,6 +11,7 @@ class Produto extends Model
         'nome',
         'preco',
         'quantidade',
-        'total'
+        'quantidadeVendida',
+        'total',
     ];
 }
