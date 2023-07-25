@@ -1,8 +1,9 @@
-@extends('layout')
+@extends('componentes/layout')
 
 @section('conteudo')
 <body>
     <div class="container">
+        @include('componentes/flash-message')
         <div class="card mb-3 mt-3">
             <div class="card-header shadow">
                 <div class="d-flex justify-content-end">
@@ -106,7 +107,7 @@
                     <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Nome:</label>
-                                <input class="form-control" name="nome" type="text">
+                                <input class="form-control" name="sandy" type="text">
                             </div>
                 
                             <div class="mb-3">
@@ -139,7 +140,7 @@
                         <form class="" action="{{ route('delete-product') }}" method="POST">
                             <p>Tem certeza que deseja excluir esses dados?</p>
                             {{ csrf_field() }}
-                            <input type="hidden" id="deletar" name="id" value="">
+                            <input id="deletar" name="id" value="">
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-success" onclick="close_modal()">Deletar</button>

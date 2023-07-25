@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('componentes/layout')
 @section('conteudo')
     <div class="container">
         <div class="card mt-3">
