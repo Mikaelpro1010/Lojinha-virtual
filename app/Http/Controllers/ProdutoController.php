@@ -27,28 +27,6 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'nome' => 'required|string|max:255',
-        //         'preco' => 'required|string|max:255',
-        //         'quantidade' => 'required|string|max:255',
-        //     ],
-        //     [
-        //         'nome.required' => 'É necessário possuir um nome para ser editado!',
-        //         'preco.required' => 'É necessário possuir um preço para ser editado!',
-        //         'quantidade.required' => 'É necessário possuir uma quantidade para ser editado!',
-        //         'max' => 'Quantidade de caracteres ultrapassada, o nome deve ter menos que 254 caracteres!',
-        //     ]
-        // );
-
-        // if ($validator->fails()) {
-        //     return redirect()
-        //         ->back()
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
-
         if($request->nome == null && $request->preco == null && $request->quantidade == null){
             return redirect()->route('listagem-produtos')->with('error','Todos os campos são obrigatório!');
         }
@@ -102,45 +80,9 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     public function deleteProduct(Request $request){
         $produto = Produto::find($request->id);
         $produto->delete();
         return redirect()->route('listagem-produtos')->with('success', 'Produto deletado com sucesso!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $id)
-    {
-        
     }
 }
